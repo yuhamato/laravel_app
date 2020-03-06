@@ -33,7 +33,9 @@ class TodoController extends Controller
         //dd($todos);
         // dd(compact('todos'));
         $todos = $this->todo->getByUserId(Auth::id());  //Authファサード。Auth::idのの::はアロー演算子のようなもの Auth::id()は現在ログインしているユーザーのID取得
-        return view('todo.index', compact('todos'));    //view('resources/viewsディレクトリ配下のファイル名','変数')
+        $user = Auth::user();
+        // dd($userName);
+        return view('todo.index', compact('todos', 'user'));    //view('resources/viewsディレクトリ配下のファイル名','変数')
         // return view('todo.index', [ 'todos' => $todos ]);    //compactなしでかくと
     }
 
@@ -100,7 +102,8 @@ class TodoController extends Controller
     {
         $input = $request->all();   //入力値を取り出す
         $this->todo->find($id)->fill($input)->save();   //findはidの1レコード分の情報を持ったTodoクラス（Model）の新しいインスタンスが返り値。fillは引数を設定できるか確認してfindで返ってきたインスタンスへ書き込むイメージ。Modelで定義しているのと確認。saveで保存をかける。
-        return redirect()->to('todo');
+        // return redirect()->to('todo');
+        return redirect()->route('todo.index');
     }
 
     /**
@@ -112,6 +115,7 @@ class TodoController extends Controller
     public function destroy($id)    //deleteはGETメソッドの仲間でURLからidが受け取れる
     {
         $this->todo->find($id)->delete();   //findはidの1レコード分の情報を持ったTodoクラス（Model）のインスタンスが返り値の為、アロー演算子でdeleteの実行ができる。
-        return redirect()->to('todo');
+        // return redirect()->to('todo');
+        return redirect()->route('todo.index');
     }
 }
