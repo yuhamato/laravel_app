@@ -33,7 +33,8 @@ class TodoController extends Controller
         //dd($todos);
         // dd(compact('todos'));
         $todos = $this->todo->getByUserId(Auth::id());  //Authファサード。Auth::idのの::はアロー演算子のようなもの Auth::id()は現在ログインしているユーザーのID取得
-        return view('todo.index', compact('todos'));    //view('resources/viewsディレクトリ配下のファイル名','変数')
+        $user = Auth::user();
+        return view('todo.index', compact('todos', 'user'));    //view('resources/viewsディレクトリ配下のファイル名','変数')
         // return view('todo.index', [ 'todos' => $todos ]);    //compactなしでかくと
     }
 
