@@ -62,7 +62,8 @@ class TodoController extends Controller
         // dd($input);
         $this->todo->fill($input)->save();  //save() でデータの保存
         // dd(redirect()->to('todo'));
-        return redirect()->to('todo');  //URItodoのページへ飛ぶ
+        // return redirect()->to('todo');  //URItodoのページへ飛ぶ
+        return redirect()->route('todo.index');  //URItodoのページへ飛ぶ
     }
 
     /**
