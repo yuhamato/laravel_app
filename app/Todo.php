@@ -3,9 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;   //softDeletesというのが論理削除になる
 
 class Todo extends Model
 {
+    use SoftDeletes;    //論理削除のため追加
+    /**
+     * 日付へキャストする属性
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];   //論理削除のため追加
+
     protected $fillable = [
         'title',
         'user_id'
